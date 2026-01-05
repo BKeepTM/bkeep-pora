@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Bkeep"
 include(":app")
- 
+include(":lib")
