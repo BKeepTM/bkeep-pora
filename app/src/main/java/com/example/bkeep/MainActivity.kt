@@ -1,10 +1,13 @@
 package com.example.bkeep
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.bkeep.databinding.ActivityMainBinding
+import com.example.bkeep.ui.login.LoginActivity
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -55,5 +58,13 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(binding.fragmentView.id, fragment)
             .commit()
+    }
+    private fun logout() {
+        // pobriši JWT token
+        val prefs = getSharedPreferences("auth_prefs", MODE_PRIVATE)
+        prefs.edit().clear().apply()
+
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
     }
 }
