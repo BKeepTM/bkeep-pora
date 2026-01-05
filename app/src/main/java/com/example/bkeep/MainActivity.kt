@@ -1,14 +1,9 @@
 package com.example.bkeep
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.bkeep.databinding.ActivityMainBinding
-import kotlin.getValue
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -18,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //setCurrentFragment(DisplayFragment())
+        //setCurrentFragment(LoginFragment())
 
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
