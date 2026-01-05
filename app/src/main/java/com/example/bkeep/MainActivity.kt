@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.bkeep.databinding.ActivityMainBinding
 import com.example.bkeep.ui.login.LoginActivity
+import com.example.lockgym.MapFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         // BottomNav
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                //R.id.mapNav -> setCurrentFragment(MapFragment())
+                R.id.mapNav -> setCurrentFragment(MapFragment())
                 //R.id.addNav -> setCurrentFragment(AddFragment())
                 //R.id.listNav -> setCurrentFragment(DisplayFragment())
             }
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 //R.id.drawNavAcc -> setCurrentFragment(ProfileFragment())
                 //R.id.drawNavSettings -> setCurrentFragment(SettingsFragment())
-                //R.id.drawNavLogout -> logout()
+                R.id.drawNavLogout -> logout()
             }
             binding.drawerLayout.closeDrawers()
             true

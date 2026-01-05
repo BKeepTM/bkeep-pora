@@ -62,4 +62,5 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.security:security-crypto:1.1.0-alpha03")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    implementation("org.osmdroid:osmdroid-android:6.1.15")
 }
