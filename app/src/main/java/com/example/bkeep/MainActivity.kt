@@ -1,11 +1,12 @@
 package com.example.bkeep
 
 import android.os.Bundle
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.bkeep.databinding.ActivityMainBinding
-
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,8 +14,22 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //setCurrentFragment(LoginFragment())
+        setSupportActionBar(binding.toolbar)
 
+        // Hamburger
+        val toggle = ActionBarDrawerToggle(
+            this,
+            binding.drawerLayout,
+            binding.toolbar,
+            R.string.drawer_open,
+            R.string.drawer_close
+        )
+        binding.drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        //setCurrentFragment(MapFragment())
+
+        // BottomNav
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 //R.id.mapNav -> setCurrentFragment(MapFragment())
@@ -23,12 +38,22 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
+        // DrawerNav
+        binding.navigationView.setNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                //R.id.drawNavAcc -> setCurrentFragment(ProfileFragment())
+                //R.id.drawNavSettings -> setCurrentFragment(SettingsFragment())
+                //R.id.drawNavLogout -> logout()
+            }
+            binding.drawerLayout.closeDrawers()
+            true
+        }
     }
 
-    private fun setCurrentFragment(fragment: Fragment) =
-        supportFragmentManager.beginTransaction().apply {
-            replace(binding.fragmentView.id,fragment)
-            commit()
-        }
-
+    private fun setCurrentFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(binding.fragmentView.id, fragment)
+            .commit()
+    }
 }
