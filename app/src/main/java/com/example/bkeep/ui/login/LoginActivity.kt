@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.bkeep.MainActivity
 import com.example.bkeep.R
+import com.example.bkeep.auth.TokenManager
 
 class LoginActivity : AppCompatActivity() {
 
@@ -22,6 +23,6 @@ class LoginActivity : AppCompatActivity() {
     fun onLoginSuccess() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-        finish() // da user ne more nazaj do login
+        finish()
     }
 }
