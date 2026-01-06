@@ -5,9 +5,10 @@ import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.bkeep.auth.TokenManager
 import com.example.bkeep.databinding.ActivityMainBinding
 import com.example.bkeep.ui.login.LoginActivity
-import com.example.lockgym.MapFragment
+import com.example.bkeep.ui.map.MapFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -48,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 //R.id.drawNavAcc -> setCurrentFragment(ProfileFragment())
                 //R.id.drawNavSettings -> setCurrentFragment(SettingsFragment())
-                R.id.drawNavLogout -> logout()
+                R.id.drawNavLogout -> TokenManager.clearToken()
             }
             binding.drawerLayout.closeDrawers()
             true
@@ -59,13 +60,5 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(binding.fragmentView.id, fragment)
             .commit()
-    }
-    private fun logout() {
-        // pobriši JWT token
-        val prefs = getSharedPreferences("auth_prefs", MODE_PRIVATE)
-        prefs.edit().clear().apply()
-
-        startActivity(Intent(this, LoginActivity::class.java))
-        finish()
     }
 }
