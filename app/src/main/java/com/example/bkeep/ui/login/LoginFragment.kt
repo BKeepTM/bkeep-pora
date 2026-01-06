@@ -8,9 +8,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
+import com.example.bkeep.auth.TokenManager
 import com.example.bkeep.databinding.FragmentLoginBinding
 import com.example.bkeep.network.RetrofitInstance
-import com.example.lib.login.LoginRequest
+import com.example.lib.data.login.LoginRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -47,12 +48,11 @@ class LoginFragment : Fragment() {
     private fun loginUser(username: String, password: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = RetrofitInstance.api.login(LoginRequest(username, password))
+                val response = RetrofitInstance.authApi.login(LoginRequest(username, password))
 
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful && response.body() != null) {
-                        val token = response.body()!!.token
-                        saveToken(token)
+                        TokenManager.saveToken(response.body()!!.token) // shrani JWT
                         Toast.makeText(requireContext(), "Uspešen login!", Toast.LENGTH_SHORT)
                             .show()
 
@@ -76,18 +76,6 @@ class LoginFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private fun saveToken(token: String) {
-        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
-        val sharedPrefs = EncryptedSharedPreferences.create(
-            "auth_prefs",
-            masterKeyAlias,
-            requireContext(),
-            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-        )
-        sharedPrefs.edit().putString("jwt_token", token).apply()
     }
 
     override fun onDestroyView() {

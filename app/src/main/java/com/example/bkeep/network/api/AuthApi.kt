@@ -1,6 +1,7 @@
-package com.example.bkeep.network
+package com.example.bkeep.network.api
 
-import com.example.lib.login.*
+import com.example.lib.data.login.LoginRequest
+import com.example.lib.data.login.LoginResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
