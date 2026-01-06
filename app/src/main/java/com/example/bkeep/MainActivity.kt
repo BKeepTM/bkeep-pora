@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 //R.id.drawNavAcc -> setCurrentFragment(ProfileFragment())
                 //R.id.drawNavSettings -> setCurrentFragment(SettingsFragment())
-                R.id.drawNavLogout -> TokenManager.clearToken()
+                R.id.drawNavLogout -> logout()
             }
             binding.drawerLayout.closeDrawers()
             true
@@ -61,4 +61,16 @@ class MainActivity : AppCompatActivity() {
             .replace(binding.fragmentView.id, fragment)
             .commit()
     }
+
+    private fun logout() {
+        TokenManager.clearToken()
+
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+                Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+        startActivity(intent)
+        finish()
+    }
+
 }
