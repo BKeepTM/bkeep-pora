@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.bkeep.auth.TokenManager
 import com.example.bkeep.databinding.ActivityMainBinding
+import com.example.bkeep.ui.list.HiveFragment
 import com.example.bkeep.ui.login.LoginActivity
 import com.example.bkeep.ui.map.MapFragment
 
@@ -32,14 +33,14 @@ class MainActivity : AppCompatActivity() {
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        //setCurrentFragment(MapFragment())
+        setCurrentFragment(HiveFragment())
 
         // BottomNav
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.mapNav -> setCurrentFragment(MapFragment())
                 //R.id.addNav -> setCurrentFragment(AddFragment())
-                //R.id.listNav -> setCurrentFragment(DisplayFragment())
+                R.id.listNav -> setCurrentFragment(HiveFragment())
             }
             true
         }
