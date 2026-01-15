@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.bkeep.auth.TokenManager
 import com.example.bkeep.databinding.ActivityMainBinding
+import com.example.bkeep.sensors.SensorInfoFragment
 import com.example.bkeep.ui.list.HiveFragment
 import com.example.bkeep.ui.login.LoginActivity
 import com.example.bkeep.ui.map.MapFragment
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity() {
                 //R.id.drawNavAcc -> setCurrentFragment(ProfileFragment())
                 //R.id.drawNavSettings -> setCurrentFragment(SettingsFragment())
                 R.id.drawNavLogout -> logout()
+                R.id.drawSensors -> setCurrentFragment(SensorInfoFragment())
             }
             binding.drawerLayout.closeDrawers()
             true

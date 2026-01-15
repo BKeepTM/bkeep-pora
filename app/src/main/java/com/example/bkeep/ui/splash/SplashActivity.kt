@@ -15,7 +15,7 @@ class SplashActivity : AppCompatActivity() {
         if (TokenManager.isLoggedIn()) {
             startActivity(Intent(this, MainActivity::class.java))
         } else {
-            startActivity(Intent(this, LoginActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
         }
 
         finish()

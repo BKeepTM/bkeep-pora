@@ -15,4 +15,7 @@
         android:id="@+id/drawNavLogout"
         android:title="Logout" />
 
+    <item
+        android:id="@+id/drawSensors"
+        android:title="Sensors" />
 </menu>
