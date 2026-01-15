@@ -60,5 +60,15 @@ class MyHiveRecyclerViewAdapter(
         val hiveType : TextView = binding.hiveType
         val hiveStatus : TextView = binding.hiveStatus
     }
+    fun getItem(position: Int): Hive = values[position]
 
+    fun removeItem(position: Int) {
+        values.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
+    fun addItem(position: Int, hive: Hive) {
+        values.add(position, hive)
+        notifyItemInserted(position)
+    }
 }
