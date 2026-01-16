@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.bkeep.databinding.FragmentSensorInfoBinding
 import com.example.bkeep.sensors.humidity.HumiditySensor
 import com.example.bkeep.sensors.light.LightSensor
+import com.example.bkeep.sensors.temperature.TemperatureSensor
 
 class SensorInfoFragment : Fragment() {
 
@@ -16,6 +17,7 @@ class SensorInfoFragment : Fragment() {
 
     private lateinit var lightSensor: LightSensor
     private lateinit var humiditySensor : HumiditySensor
+    private lateinit var temperatureSensor : TemperatureSensor
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,18 +37,23 @@ class SensorInfoFragment : Fragment() {
         humiditySensor = HumiditySensor(requireContext()){
             humidityValue -> binding.humiditySensorDisplay.text = "Humidity: $humidityValue %"
         }
+        temperatureSensor = TemperatureSensor(requireContext()){
+                temperatureValue -> binding.temperatureSensorDisplay.text = "Temperature: $temperatureValue °C"
+        }
     }
 
     override fun onResume() {
         super.onResume()
         lightSensor.start()
         humiditySensor.start()
+        temperatureSensor.start()
     }
 
     override fun onPause() {
         super.onPause()
         lightSensor.stop()
         humiditySensor.stop()
+        temperatureSensor.stop()
     }
 
     override fun onDestroyView() {
