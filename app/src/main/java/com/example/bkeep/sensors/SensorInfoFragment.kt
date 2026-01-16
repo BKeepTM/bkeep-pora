@@ -1,24 +1,21 @@
 package com.example.bkeep.sensors
 
-import android.content.Context
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
-import android.hardware.SensorManager
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.bkeep.databinding.FragmentSensorInfoBinding
+import com.example.bkeep.sensors.humidity.HumiditySensor
+import com.example.bkeep.sensors.light.LightSensor
 
-class SensorInfoFragment : Fragment(), SensorEventListener {
+class SensorInfoFragment : Fragment() {
 
     private var _binding: FragmentSensorInfoBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var sensorManager: SensorManager
-    private var lightSensor: Sensor? = null
+    private lateinit var lightSensor: LightSensor
+    private lateinit var humiditySensor : HumiditySensor
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,35 +29,28 @@ class SensorInfoFragment : Fragment(), SensorEventListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    override fun onAccuracyChanged(p0: Sensor, p1: Int) {
-        return
-    }
-
-    override fun onSensorChanged(event: SensorEvent) {
-        if (event.sensor.type == Sensor.TYPE_LIGHT) {
-            val lightValue = event.values[0]  // v lux
-            binding.lightSensorDisplay.text = "Brightness: $lightValue"
+        lightSensor = LightSensor(requireContext()) {
+            lightValue -> binding.lightSensorDisplay.text = "Brightness: $lightValue lx"
+        }
+        humiditySensor = HumiditySensor(requireContext()){
+            humidityValue -> binding.humiditySensorDisplay.text = "Humidity: $humidityValue %"
         }
     }
 
     override fun onResume() {
         super.onResume()
-        lightSensor?.let {
-            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_NORMAL)
-        }
+        lightSensor.start()
+        humiditySensor.start()
     }
 
     override fun onPause() {
         super.onPause()
-        sensorManager.unregisterListener(this)
+        lightSensor.stop()
+        humiditySensor.stop()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
