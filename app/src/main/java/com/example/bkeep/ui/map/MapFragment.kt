@@ -13,13 +13,20 @@ import com.example.bkeep.network.RetrofitInstance
 import com.example.lib.data.location.HiveLocation
 import kotlinx.coroutines.launch
 import org.osmdroid.config.Configuration
+import org.osmdroid.events.MapEventsReceiver
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.overlay.MapEventsOverlay
 import org.osmdroid.views.overlay.Marker
 
+enum class MapMode {
+    VIEW,
+    PICK
+}
 class MapFragment : Fragment() {
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
+    private lateinit var mapMode: MapMode
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,24 +36,29 @@ class MapFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Nastavi konfiguracijo
+        mapMode = arguments?.getSerializable("MODE") as? MapMode ?: MapMode.VIEW
+
         Configuration.getInstance().load(requireContext(), requireContext().getSharedPreferences("osmdroid", 0))
 
-        // Nastavi zemljevid
         val map = binding.map
         map.setTileSource(TileSourceFactory.MAPNIK)
         map.setMultiTouchControls(true)
 
-        // Začetna lokacija
         val startPoint = GeoPoint(46.1512, 14.9955)
         map.controller.setZoom(8.8)
         map.controller.setCenter(startPoint)
 
-        loadHives()
+        if (mapMode == MapMode.VIEW) {
+            loadHives()
+        } else {
+            enablePickMode()
+        }
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -96,4 +108,36 @@ class MapFragment : Fragment() {
         }*/
         map.overlays.add(marker)
     }
+    private fun enablePickMode() {
+        val map = binding.map
+
+        Toast.makeText(requireContext(), "Klikni na mapo za izbiro lokacije", Toast.LENGTH_SHORT).show()
+
+        val mapEventsReceiver = object : MapEventsReceiver {
+            override fun singleTapConfirmedHelper(p: GeoPoint?): Boolean {
+                if (p != null) {
+                    // Shrani koordinate v fragment result
+                    parentFragmentManager.setFragmentResult(
+                        "pick_location",
+                        Bundle().apply {
+                            putDouble("lat", p.latitude)
+                            putDouble("lng", p.longitude)
+                        }
+                    )
+
+                    parentFragmentManager.popBackStack()
+                }
+                return true
+            }
+
+            override fun longPressHelper(p: GeoPoint?): Boolean {
+                //dolgi klik ne naredi nič
+                return false
+            }
+        }
+
+        val overlayEvents = MapEventsOverlay(mapEventsReceiver)
+        map.overlays.add(overlayEvents)
+    }
+
 }

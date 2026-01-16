@@ -12,10 +12,10 @@
         android:title="Settings" />
 
     <item
-        android:id="@+id/drawNavLogout"
-        android:title="Logout" />
+        android:id="@+id/drawSensors"
+        android:title="Sensors"/>
 
     <item
-        android:id="@+id/drawSensors"
-        android:title="Sensors" />
+        android:id="@+id/drawNavLogout"
+        android:title="Logout" />
 </menu>
