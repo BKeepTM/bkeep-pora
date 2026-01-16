@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.bkeep.R
 import com.example.bkeep.databinding.FragmentAddHiveBinding
 import com.example.bkeep.network.RetrofitInstance
+import com.example.bkeep.ui.list.HiveFragment
 import com.example.bkeep.ui.map.MapFragment
 import com.example.bkeep.ui.map.MapMode
 import com.example.lib.data.hive.CreateHiveRequest
@@ -100,6 +101,11 @@ class AddHiveFragment : Fragment() {
                     val response = RetrofitInstance.hiveApi.createHive(request)
                     if (response.isSuccessful) {
                         Toast.makeText(requireContext(), "Panj ustvarjen!", Toast.LENGTH_SHORT).show()
+
+                        parentFragmentManager.beginTransaction()
+                            .replace(R.id.fragmentView, HiveFragment())
+                            .addToBackStack(null)
+                            .commit()
                     } else {
                         Toast.makeText(requireContext(), "Napaka: ${response.code()}", Toast.LENGTH_SHORT).show()
                     }
