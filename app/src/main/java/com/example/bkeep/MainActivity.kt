@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.bkeep.auth.TokenManager
 import com.example.bkeep.databinding.ActivityMainBinding
 import com.example.bkeep.sensors.SensorInfoFragment
+import com.example.bkeep.ui.add.AddHiveFragment
 import com.example.bkeep.ui.list.HiveFragment
 import com.example.bkeep.ui.login.LoginActivity
 import com.example.bkeep.ui.map.MapFragment
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.mapNav -> setCurrentFragment(MapFragment())
-                //R.id.addNav -> setCurrentFragment(AddFragment())
+                R.id.addNav -> setCurrentFragment(AddHiveFragment())
                 R.id.listNav -> setCurrentFragment(HiveFragment())
             }
             true
@@ -51,8 +52,8 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 //R.id.drawNavAcc -> setCurrentFragment(ProfileFragment())
                 //R.id.drawNavSettings -> setCurrentFragment(SettingsFragment())
-                R.id.drawNavLogout -> logout()
                 R.id.drawSensors -> setCurrentFragment(SensorInfoFragment())
+                R.id.drawNavLogout -> logout()
             }
             binding.drawerLayout.closeDrawers()
             true

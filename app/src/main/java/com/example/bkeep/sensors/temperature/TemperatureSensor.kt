@@ -15,7 +15,7 @@ class TemperatureSensor(
         context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
     private val temperatureSensor: Sensor? =
-        sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE)
+        sensorManager.getDefaultSensor(Sensor.TYPE_TEMPERATURE)
 
     fun start() {
         temperatureSensor?.let {
@@ -32,7 +32,7 @@ class TemperatureSensor(
     }
 
     override fun onSensorChanged(event: SensorEvent) {
-        if (event.sensor.type == Sensor.TYPE_AMBIENT_TEMPERATURE) {
+        if (event.sensor.type == Sensor.TYPE_TEMPERATURE) {
             val temperatureValue = event.values[0]
             onTemperatureChanged(temperatureValue)
         }

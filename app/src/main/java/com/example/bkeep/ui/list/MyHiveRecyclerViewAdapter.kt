@@ -43,10 +43,10 @@ class MyHiveRecyclerViewAdapter(
         holder.hiveType.text = item.type
         holder.hiveStatus.text = item.status
 
-        if(item.status == "online"){
+        if(item.status == "offline"){
             holder.hiveStatus.text = item.status
             holder.hiveStatus.setTextColor(Color.parseColor("#f5426f"));
-        }else if(item.status == "offline"){
+        }else if(item.status == "online"){
             holder.hiveStatus.text = item.status
             holder.hiveStatus.setTextColor(Color.parseColor("#19b34c"));
         }
