@@ -1,4 +1,4 @@
-package com.example.bkeep.ui.login
+package com.example.bkeep.ui.register
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,67 +6,67 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKeys
-import com.example.bkeep.R
 import com.example.bkeep.auth.TokenManager
-import com.example.bkeep.databinding.FragmentLoginBinding
+import com.example.bkeep.databinding.FragmentRegisterBinding
 import com.example.bkeep.network.RetrofitInstance
-import com.example.bkeep.ui.register.RegisterFragment
+import com.example.bkeep.ui.login.LoginActivity
 import com.example.lib.data.login.LoginRequest
+import com.example.lib.data.register.RegisterRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class LoginFragment : Fragment() {
+class RegisterFragment : Fragment() {
 
-    private var _binding: FragmentLoginBinding? = null
+    private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnLogin.setOnClickListener {
-            val username = binding.etUsername.text.toString().trim()
-            val password = binding.etPassword.text.toString().trim()
+        binding.btnRegister.setOnClickListener {
+            val username = binding.etRegisterUsername.text.toString().trim()
+            val password = binding.etRegisterPassword.text.toString().trim()
+            val confirmPassword = binding.etPasswordConfirm.text.toString().trim()
+            val email = binding.etRegisterEmail.text.toString().trim();
+            if (username.isEmpty() || password.isEmpty() || email.isEmpty() || confirmPassword.isEmpty()) {
 
-            if (username.isEmpty() || password.isEmpty()) {
                 Toast.makeText(requireContext(), "Izpolni vsa polja", Toast.LENGTH_SHORT).show()
             } else {
-                loginUser(username, password)
+                if (password != confirmPassword){
+                    Toast.makeText(requireContext(), "gesli nista enaki", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener;
+                }
+                registerUser(username, password,email)
             }
-        }
-        binding.registerClickText.setOnClickListener {
-            val registerFragment = RegisterFragment();
-            (activity as? LoginActivity)?.replaceFragment(registerFragment);
         }
     }
 
-    private fun loginUser(username: String, password: String) {
+    private fun registerUser(username: String, password: String, email : String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = RetrofitInstance.authApi.login(LoginRequest(username, password))
+                val response = RetrofitInstance.authApi.register(RegisterRequest(username, password,email))
 
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful && response.body() != null) {
-                        TokenManager.saveToken(response.body()!!.token) // shrani JWT
-                        Toast.makeText(requireContext(), "Uspešen login!", Toast.LENGTH_SHORT)
-                            .show()
+                        //TokenManager.saveToken(response.body()!!.resString) // shrani JWT
+                        //Toast.makeText(requireContext(), "Uspešen login!", Toast.LENGTH_SHORT)
+                            //.show()
 
-                        (activity as? LoginActivity)?.onLoginSuccess()
+                        (activity as? LoginActivity)?.onRegisterSuccess()
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Napačno uporabniško ime ali geslo",
+                            "Napaka pri registraciji",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
