@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- TITLE -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Simulation Settings"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- HUMIDITY -->
+        <TextView
+            android:id="@+id/tvHumidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Humidity range (%)"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="24dp"/>
+
+        <EditText
+            android:id="@+id/etHumidityMin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Min"
+            android:inputType="numberDecimal"
+            app:layout_constraintTop_toBottomOf="@id/tvHumidity"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/etHumidityMax"
+            android:layout_marginEnd="8dp"/>
+
+        <EditText
+            android:id="@+id/etHumidityMax"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Max"
+            android:inputType="numberDecimal"
+            app:layout_constraintTop_toBottomOf="@id/tvHumidity"
+            app:layout_constraintStart_toEndOf="@id/etHumidityMin"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- BRIGHTNESS -->
+        <TextView
+            android:id="@+id/tvBrightness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Brightness range (lux)"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/etHumidityMin"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="24dp"/>
+
+        <EditText
+            android:id="@+id/etBrightnessMin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Min"
+            android:inputType="numberDecimal"
+            app:layout_constraintTop_toBottomOf="@id/tvBrightness"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/etBrightnessMax"
+            android:layout_marginEnd="8dp"/>
+
+        <EditText
+            android:id="@+id/etBrightnessMax"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Max"
+            android:inputType="numberDecimal"
+            app:layout_constraintTop_toBottomOf="@id/tvBrightness"
+            app:layout_constraintStart_toEndOf="@id/etBrightnessMin"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- TEMPERATURE -->
+        <TextView
+            android:id="@+id/tvTemperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Temperature range (°C)"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/etBrightnessMin"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="24dp"/>
+
+        <EditText
+            android:id="@+id/etTempMin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Min"
+            android:inputType="numberDecimal"
+            app:layout_constraintTop_toBottomOf="@id/tvTemperature"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/etTempMax"
+            android:layout_marginEnd="8dp"/>
+
+        <EditText
+            android:id="@+id/etTempMax"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Max"
+            android:inputType="numberDecimal"
+            app:layout_constraintTop_toBottomOf="@id/tvTemperature"
+            app:layout_constraintStart_toEndOf="@id/etTempMin"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- WEATHER -->
+        <TextView
+            android:id="@+id/tvWeather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Weather"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/etTempMin"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="24dp"/>
+
+        <Spinner
+            android:id="@+id/spWeather"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvWeather"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- POPULATION -->
+        <TextView
+            android:id="@+id/tvPopulation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bee population"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/spWeather"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="24dp"/>
+
+        <Spinner
+            android:id="@+id/spPopulation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvPopulation"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- WEIGHT -->
+        <TextView
+            android:id="@+id/tvWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Initial hive weight (kg)"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/spPopulation"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="24dp"/>
+
+        <EditText
+            android:id="@+id/etWeight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="e.g. 25"
+            android:inputType="numberDecimal"
+            app:layout_constraintTop_toBottomOf="@id/tvWeight"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- TIME -->
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Simulation duration (days)"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/etWeight"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="24dp"/>
+
+        <EditText
+            android:id="@+id/etDuration"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="e.g. 7"
+            android:inputType="number"
+            app:layout_constraintTop_toBottomOf="@id/tvTime"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- BUTTON -->
+        <Button
+            android:id="@+id/btnSimulate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Simulate"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/etDuration"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="@color/light_yellow"
+            android:textColor="@color/dark_gray"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
