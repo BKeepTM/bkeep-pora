@@ -8,12 +8,12 @@
         android:title="My Account" />
 
     <item
-        android:id="@+id/drawNavSettings"
-        android:title="Settings" />
-
-    <item
         android:id="@+id/drawSensors"
         android:title="Sensors"/>
+
+    <item
+        android:id="@+id/drawNavSettings"
+        android:title="Settings" />
 
     <item
         android:id="@+id/drawNavLogout"
