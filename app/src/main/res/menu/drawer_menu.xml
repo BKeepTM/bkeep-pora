@@ -12,6 +12,11 @@
         android:title="Sensors"/>
 
     <item
+        android:id="@+id/drawSimulate"
+        android:title="Simulate"/>
+
+
+    <item
         android:id="@+id/drawNavSettings"
         android:title="Settings" />
 

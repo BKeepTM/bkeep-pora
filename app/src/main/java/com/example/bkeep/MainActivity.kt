@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.drawNavAcc -> setCurrentFragment(AccountFragment())
                 //R.id.drawNavSettings -> setCurrentFragment(SettingsFragment())
+                R.id.drawSimulate -> setCurrentFragment(SimulationFragment())
                 R.id.drawSensors -> setCurrentFragment(SensorInfoFragment())
                 R.id.drawNavLogout -> logout()
             }
