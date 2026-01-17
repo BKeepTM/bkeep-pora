@@ -10,7 +10,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
 
-    private const val BASE_URL = "https://pi.darkosever.si"
+    private const val BASE_URL = "http://10.0.2.2:3000"
+    //http://localhost:3000
+    //https://pi.darkosever.si
+    //http://10.0.2.2:3000
 
     private val client by lazy {
         OkHttpClient.Builder()
