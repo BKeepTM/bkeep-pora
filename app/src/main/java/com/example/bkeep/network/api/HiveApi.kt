@@ -28,10 +28,7 @@ interface HiveApi {
     @POST("hive")
     suspend fun createHive(@Body request: CreateHiveRequest): Response<Unit>
 
-    @PUT("/hive/{id}")
-    suspend fun updateHive(
-        @Path("id") hiveId: Int,
-        @Body updates: Map<String, String>
-    ): Response<Hive>
+    @POST("/hive/update_status")
+    suspend fun updateHiveStatus(@Body body: Map<String, String>): Response<Hive>
 
 }

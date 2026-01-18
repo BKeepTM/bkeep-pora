@@ -8,7 +8,16 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.example.bkeep.databinding.FragmentHiveDetailBinding
 import com.example.bkeep.network.RetrofitInstance
+import com.example.lib.data.hive.Weight
 import kotlinx.coroutines.launch
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.ValueFormatter
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class HiveDetailFragment : Fragment() {
 
@@ -67,10 +76,16 @@ class HiveDetailFragment : Fragment() {
             binding.tvStatus.text = newStatus
 
             lifecycleScope.launch {
-                RetrofitInstance.hiveApi.updateHive(
-                    hiveId,
-                    mapOf("status" to newStatus)
-                )
+                try {
+                    RetrofitInstance.hiveApi.updateHiveStatus(
+                        mapOf(
+                            "id" to hiveId.toString(),
+                            "status" to newStatus
+                        )
+                    )
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
     }
@@ -80,11 +95,53 @@ class HiveDetailFragment : Fragment() {
             val res = RetrofitInstance.weightApi.getHiveWeight(hiveId)
             if (res.isSuccessful) {
                 val list = res.body() ?: emptyList()
-                binding.tvWeight.text =
-                    if (list.isNotEmpty())
-                        "Teža: ${list.last().weight} kg"
-                    else "Teža: 0 kg"
+
+                if (list.isNotEmpty()) {
+                    binding.tvWeight.text = "Teža: ${list.last().weight} kg"
+                    showWeightChart(list)
+                } else {
+                    binding.tvWeight.text = "Teža: 0 kg"
+                }
             }
+        }
+    }
+    private fun showWeightChart(weights: List<Weight>) {
+        val entries = weights.mapIndexed { index, w ->
+            Entry(index.toFloat(), w.weight)
+        }
+
+        val dataSet = LineDataSet(entries, "Teža panja (kg)").apply {
+            setDrawValues(false)
+            setDrawCircles(true)
+            lineWidth = 2f
+            circleRadius = 4f
+        }
+
+        val lineData = LineData(dataSet)
+
+        // parser za datum
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+
+        binding.weightChart.apply {
+            data = lineData
+            description.isEnabled = false
+            axisRight.isEnabled = false
+            xAxis.granularity = 1f
+
+            xAxis.valueFormatter = object : ValueFormatter() {
+                override fun getFormattedValue(value: Float): String {
+                    val index = value.toInt()
+                    val raw = weights.getOrNull(index)?.time_weight?.substring(0,10) ?: return ""
+                    return try {
+                        val date = inputFormat.parse(raw)
+                        outputFormat.format(date)
+                    } catch (e: Exception) {
+                        ""
+                    }
+                }
+            }
+            invalidate()
         }
     }
 
