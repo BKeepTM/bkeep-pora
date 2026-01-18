@@ -50,7 +50,6 @@ dependencies {
     implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.remote.creation.core)
     implementation(libs.androidx.preference)
-    implementation(libs.androidx.cardview)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -68,4 +67,6 @@ dependencies {
     implementation("androidx.security:security-crypto:1.1.0-alpha03")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
     implementation("org.osmdroid:osmdroid-android:6.1.15")
+
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }
