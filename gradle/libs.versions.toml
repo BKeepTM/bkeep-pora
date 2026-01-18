@@ -15,6 +15,9 @@ recyclerview = "1.4.0"
 remoteCreationCore = "1.0.0-alpha02"
 preference = "1.2.0"
 cardview = "1.0.0"
+material3 = "1.4.0"
+playServicesLocation = "21.3.0"
+workRuntimeKtx = "2.11.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -30,6 +33,9 @@ androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview"
 androidx-remote-creation-core = { group = "androidx.compose.remote", name = "remote-creation-core", version.ref = "remoteCreationCore" }
 androidx-preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
 androidx-cardview = { group = "androidx.cardview", name = "cardview", version.ref = "cardview" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
+play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
+androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workRuntimeKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

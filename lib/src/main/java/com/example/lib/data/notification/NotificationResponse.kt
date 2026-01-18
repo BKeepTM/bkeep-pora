@@ -1,4 +1,5 @@
 package com.example.lib.data.notification
 
-class NotificationResponse {
-}
+data class NotificationResponse(
+    val id: Int
+)

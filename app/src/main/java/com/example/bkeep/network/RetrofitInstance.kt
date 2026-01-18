@@ -2,8 +2,10 @@ package com.example.bkeep.network
 
 import com.example.bkeep.auth.TokenManager
 import com.example.bkeep.network.api.AuthApi
+import com.example.bkeep.network.api.DeviceDataApi
 import com.example.bkeep.network.api.HiveApi
 import com.example.bkeep.network.api.NotesApi
+import com.example.bkeep.network.api.NotificationApi
 import com.example.bkeep.network.api.WeightApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -58,6 +60,13 @@ object RetrofitInstance {
     //NOTES
     val notesApi: NotesApi by lazy {
         retrofit.create(NotesApi::class.java)
+    }
+    //DEVICE DATA
+    val deviceDataApi: DeviceDataApi by lazy {
+        retrofit.create(DeviceDataApi::class.java)
+    }
+    val notificationApi: NotificationApi by lazy {
+        retrofit.create(NotificationApi::class.java)
     }
 }
 

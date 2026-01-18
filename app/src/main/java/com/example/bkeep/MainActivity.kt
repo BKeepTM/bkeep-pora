@@ -1,10 +1,12 @@
 package com.example.bkeep
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceManager
 import com.example.bkeep.auth.TokenManager
 import com.example.bkeep.databinding.ActivityMainBinding
 import com.example.bkeep.sensors.SensorInfoFragment
@@ -79,5 +81,14 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+    override fun attachBaseContext(newBase: Context) {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(newBase)
+        val scale = prefs.getString("font_size", "1.0")?.toFloat() ?: 1.0f
 
+        val config = newBase.resources.configuration
+        config.fontScale = scale
+
+        val newContext = newBase.createConfigurationContext(config)
+        super.attachBaseContext(newContext)
+    }
 }

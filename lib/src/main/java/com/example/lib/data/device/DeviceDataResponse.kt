@@ -1,4 +1,9 @@
 package com.example.lib.data.device
 
-class DeviceDataResponse {
-}
+data class DeviceDataResponse(
+    val id: Int,
+    val time: String,
+    val humidity: Float?,
+    val brightness: Float?,
+    val temperature: Float?
+)
