@@ -33,15 +33,7 @@ class SensorUploadWorker(
     context: Context,
     params: WorkerParameters
 ) : CoroutineWorker(context, params) {
-    private fun getUserId(): Int {
-        val prefs = applicationContext.getSharedPreferences("BKeepPrefs", Context.MODE_PRIVATE)
-        return prefs.getInt("KEY_TOKEN", -1)
-    }
-
     override suspend fun doWork(): Result {
-        val userId = getUserId()
-        if (userId == -1) return Result.failure()
-
         return try {
             // 1. Gather Sensor Data (Suspend until we get a value)
             val temperature = getSingleSensorReading(Sensor.TYPE_AMBIENT_TEMPERATURE) ?: 0f
@@ -56,7 +48,7 @@ class SensorUploadWorker(
             val currentTime = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault()).format(Date())
 
             // 3. Check Extremes & Notify
-            checkAndNotifyExtremes(temperature, humidity, userId)
+            checkAndNotifyExtremes(temperature, humidity)
 
             // 4. Create Request Object
             val dataRequest = CreateDeviceDataRequest(
@@ -82,7 +74,7 @@ class SensorUploadWorker(
         }
     }
 
-    private suspend fun checkAndNotifyExtremes(temp: Float, humidity: Float, userId: Int) {
+    private suspend fun checkAndNotifyExtremes(temp: Float, humidity: Float) {
         var summary = ""
         var description = ""
         var isExtreme = false
@@ -104,7 +96,7 @@ class SensorUploadWorker(
                 description = description,
                 href = "",
                 severity = 2,
-                id_user = userId
+                id_user = 0
             )
             try {
                 notificationApi.createNotification(noteRequest)
@@ -126,7 +118,7 @@ class SensorUploadWorker(
         }
 
         val notification = NotificationCompat.Builder(applicationContext, channelId)
-            .setSmallIcon(R.drawable.ic_launcher_foreground) // Replace with your icon
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle(title)
             .setContentText(body)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -134,8 +126,6 @@ class SensorUploadWorker(
 
         notificationManager.notify(System.currentTimeMillis().toInt(), notification)
     }
-
-    // Helper to turn Async Sensor callback into Suspend function
     private suspend fun getSingleSensorReading(sensorType: Int): Float? = suspendCancellableCoroutine { cont ->
         val sensorManager = applicationContext.getSystemService(Context.SENSOR_SERVICE) as SensorManager
         val sensor = sensorManager.getDefaultSensor(sensorType)
