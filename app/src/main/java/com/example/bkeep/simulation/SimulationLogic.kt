@@ -1,8 +1,7 @@
 package com.example.bkeep.simulation
 
-import androidx.compose.remote.creation.random
-
-const val MAX_DAILY_HONEY = 0.22f
+const val MAX_DAILY_YIELD = 0.32f
+const val DAILY_CONSUMPTION = 0.10f
 
 fun simulate(
     days: Int,
@@ -36,55 +35,63 @@ fun dailyHoneyChange(
     population: String
 ): Float {
 
-    val factor =
-        temperatureFactor(temp) *
-                humidityFactor(humidity) *
-                lightFactor(lux) *
-                weatherFactor(weather) *
-                populationFactor(population)
+    val fTemp = temperatureFactor(temp)
+    val fHum = humidityFactor(humidity)
+    val fLight = lightFactor(lux)
+    val fWeather = weatherFactor(weather)
+    val fPop = populationFactor(population)
 
-    return MAX_DAILY_HONEY * factor
+    val production =
+        MAX_DAILY_YIELD *
+                fTemp * fHum * fLight * fWeather * fPop
+
+    val avg = (fTemp + fHum + fLight + fWeather) / 4f
+    val fStress = 1.0f + (1.0f - avg)
+
+    val consumption =
+        DAILY_CONSUMPTION * fPop * fStress
+
+    return production - consumption
 }
-
 fun temperatureFactor(temp: Float): Float =
     when {
-        temp < 9f -> -0.4f
-        temp < 16f -> 0.2f
+        temp < 9.2f -> 0.0f
+        temp < 11f -> 0.2f
+        temp < 16.3f -> 0.5f
         temp <= 28.5f -> 1.0f
-        temp <= 35f -> 0.6f
-        else -> -0.2f
+        temp <= 35f -> 0.5f
+        temp <= 39.9f -> 0.2f
+        else -> 0.0f
     }
-
 fun humidityFactor(humidity: Float): Float =
     when {
-        humidity < 50.4f -> -0.3f
+        humidity < 45f -> 0.0f
+        humidity <= 50.4f -> 0.3f
         humidity <= 71.6f -> 1.0f
-        else -> 0.4f
+        humidity <= 79.9f -> 0.3f
+        else -> 0.0f
     }
-
 fun lightFactor(lux: Float): Float =
     when {
-        lux < 1_000f -> 0.0f
-        lux < 10_000f -> 0.3f
+        lux < 1_000f -> 0.1f
+        lux < 10_000f -> 0.4f
         lux < 50_000f -> 0.8f
         else -> 1.0f
     }
-
 fun weatherFactor(weather: String): Float =
     when (weather) {
         "Sunny" -> 1.0f
         "Cloudy" -> 0.7f
         "Light rain" -> 1.0f
         "Moderate rain" -> 0.4f
-        "Heavy rain" -> -0.5f
+        "Heavy rain" -> 0.2f
         else -> 1.0f
     }
-
 fun populationFactor(population: String): Float =
     when (population) {
-        "Weak" -> 0.6f
-        "Medium" -> 1.0f
-        "Strong" -> 1.3f
+        "Weak" -> 0.5f
+        "Medium" -> 0.7f
+        "Strong" -> 1.0f
         else -> 1.0f
     }
 fun ClosedFloatingPointRange<Float>.random(): Float {
