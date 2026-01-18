@@ -3,6 +3,8 @@ package com.example.bkeep.network
 import com.example.bkeep.auth.TokenManager
 import com.example.bkeep.network.api.AuthApi
 import com.example.bkeep.network.api.HiveApi
+import com.example.bkeep.network.api.NotesApi
+import com.example.bkeep.network.api.WeightApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -46,6 +48,16 @@ object RetrofitInstance {
     //HIVES
     val hiveApi: HiveApi by lazy {
         retrofit.create(HiveApi::class.java)
+    }
+
+    //WEIGHT
+    val weightApi: WeightApi by lazy {
+        retrofit.create(WeightApi::class.java)
+    }
+
+    //NOTES
+    val notesApi: NotesApi by lazy {
+        retrofit.create(NotesApi::class.java)
     }
 }
 

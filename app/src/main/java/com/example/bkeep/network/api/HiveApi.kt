@@ -7,6 +7,8 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface HiveApi {
@@ -17,10 +19,19 @@ interface HiveApi {
     @GET("/hive/list")
     suspend fun getHiveByUserId(): Response<List<Hive>>
 
+    @GET("/hive/{id}")
+    suspend fun getHiveById(@Path("id") hiveId: Int): Response<List<Hive>>
+
     @POST("hive/remove")
     suspend fun deleteHive(@Query("id") id: Int): Response<Unit>
 
     @POST("hive")
     suspend fun createHive(@Body request: CreateHiveRequest): Response<Unit>
+
+    @PUT("/hive/{id}")
+    suspend fun updateHive(
+        @Path("id") hiveId: Int,
+        @Body updates: Map<String, String>
+    ): Response<Hive>
 
 }
