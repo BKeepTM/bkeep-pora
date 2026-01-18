@@ -14,7 +14,8 @@ import com.example.lib.data.hive.Hive
  * TODO: Replace the implementation with code for your data type.
  */
 class MyHiveRecyclerViewAdapter(
-    private val values: MutableList<Hive>
+    private val values: MutableList<Hive>,
+    private val onItemClick: (Hive) -> Unit
 ) : RecyclerView.Adapter<MyHiveRecyclerViewAdapter.ViewHolder>() {
 
     fun setData(newHives: List<Hive>) {
@@ -49,6 +50,10 @@ class MyHiveRecyclerViewAdapter(
         }else if(item.status == "online"){
             holder.hiveStatus.text = item.status
             holder.hiveStatus.setTextColor(Color.parseColor("#19b34c"));
+        }
+
+        holder.itemView.setOnClickListener {
+            onItemClick(item)
         }
     }
 

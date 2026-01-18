@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bkeep.R
 import com.example.bkeep.network.RetrofitInstance
+import com.example.bkeep.ui.hive.HiveDetailFragment
 import com.example.lib.data.hive.Hive
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
@@ -33,7 +34,9 @@ class HiveFragment : Fragment() {
 
         recyclerView = inflater.inflate(R.layout.fragment_hive_list, container, false) as RecyclerView
 
-        hiveAdapter = MyHiveRecyclerViewAdapter(mutableListOf())
+        hiveAdapter = MyHiveRecyclerViewAdapter(mutableListOf()) { hive ->
+            openHiveDetail(hive.id)
+        }
 
         recyclerView.layoutManager =
             if (columnCount <= 1)
@@ -128,4 +131,18 @@ class HiveFragment : Fragment() {
 
         ItemTouchHelper(simpleItemTouchCallback).attachToRecyclerView(recyclerView)
     }
+
+    private fun openHiveDetail(hiveId: Int) {
+        val fragment = HiveDetailFragment().apply {
+            arguments = Bundle().apply {
+                putInt("HIVE_ID", hiveId)
+            }
+        }
+
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragmentView, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
 }

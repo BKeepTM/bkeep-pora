@@ -13,6 +13,7 @@ import com.example.bkeep.ui.add.AddHiveFragment
 import com.example.bkeep.ui.list.HiveFragment
 import com.example.bkeep.ui.login.LoginActivity
 import com.example.bkeep.ui.map.MapFragment
+import com.example.bkeep.ui.settings.SettingsFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -52,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         binding.navigationView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.drawNavAcc -> setCurrentFragment(AccountFragment())
-                //R.id.drawNavSettings -> setCurrentFragment(SettingsFragment())
+                R.id.drawNavSettings -> setCurrentFragment(SettingsFragment())
                 R.id.drawSimulate -> setCurrentFragment(SimulationFragment())
                 R.id.drawSensors -> setCurrentFragment(SensorInfoFragment())
                 R.id.drawNavLogout -> logout()

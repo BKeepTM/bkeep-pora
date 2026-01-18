@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:orientation="vertical"
+    android:gravity="left"
+    android:padding="32dp">
+
+    <ImageView
+        android:id="@+id/imgDrawerLogo"
+        android:layout_width="144dp"
+        android:layout_height="144dp"
+        android:contentDescription="App logo"
+        android:src="@drawable/bkeep_napis" />
+
+</LinearLayout>
