@@ -9,4 +9,29 @@
         <item>reply</item>
         <item>reply_all</item>
     </string-array>
+    <!-- THEME OPTIONS -->
+    <string-array name="theme_entries">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>System Default</item>
+    </string-array>
+
+    <string-array name="theme_values">
+        <item>light</item>
+        <item>dark</item>
+        <item>system</item>
+    </string-array>
+
+    <!-- FONT SIZE OPTIONS -->
+    <string-array name="font_size_entries">
+        <item>Small</item>
+        <item>Normal</item>
+        <item>Large</item>
+    </string-array>
+
+    <string-array name="font_size_values">
+        <item>0.8</item> <!-- Scale factor -->
+        <item>1.0</item>
+        <item>1.2</item>
+    </string-array>
 </resources>

@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.remote.creation.core)
     implementation(libs.androidx.preference)
+    implementation(libs.androidx.cardview)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
