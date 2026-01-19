@@ -56,19 +56,16 @@ class HiveDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Nastavi back gumb
         binding.btnBack.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
 
-        // Nastavi RecyclerView
         adapter = MyNoteRecyclerViewAdapter(notesList)
         binding.rvNotes.adapter = adapter
         binding.rvNotes.layoutManager = LinearLayoutManager(context)
 
         setupSwipeToDelete() // swipe za brisanje note
 
-        // Naloži podatke
         loadHive()
         loadWeight()
         loadNotes()
@@ -86,8 +83,8 @@ class HiveDetailFragment : Fragment() {
                     if (list.isNotEmpty()) {
                         val hive = list[0]
                         binding.tvName.text = hive.name
-                        binding.tvLocation.text = "Lokacija: ${hive.location}"
-                        binding.tvType.text = "Tip: ${hive.type}"
+                        binding.tvLocation.text = "Location: ${hive.location}"
+                        binding.tvType.text = "Type: ${hive.type}"
                         binding.tvStatus.text = hive.status
 
                         currentStatus = hive.status
@@ -127,10 +124,10 @@ class HiveDetailFragment : Fragment() {
                 if (res.isSuccessful) {
                     val list = res.body() ?: emptyList()
                     if (list.isNotEmpty()) {
-                        binding.tvWeight.text = "Teža: ${list.last().weight} kg"
+                        binding.tvWeight.text = "Weight: ${list.last().weight} kg"
                         showWeightChart(list)
                     } else {
-                        binding.tvWeight.text = "Teža: 0 kg"
+                        binding.tvWeight.text = "Weight: 0 kg"
                     }
                 }
             } catch (e: Exception) {
@@ -142,7 +139,7 @@ class HiveDetailFragment : Fragment() {
     private fun showWeightChart(weights: List<Weight>) {
         val entries = weights.mapIndexed { index, w -> Entry(index.toFloat(), w.weight) }
 
-        val dataSet = LineDataSet(entries, "Teža panja (kg)").apply {
+        val dataSet = LineDataSet(entries, "Hive weight (kg)").apply {
             setDrawValues(false)
             setDrawCircles(true)
             lineWidth = 2f
