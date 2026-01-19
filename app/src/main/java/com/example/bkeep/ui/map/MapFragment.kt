@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.example.bkeep.R
 import com.example.bkeep.databinding.FragmentMapBinding
 import com.example.bkeep.network.RetrofitInstance
 import com.example.lib.data.location.HiveLocation
@@ -18,6 +19,7 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.MapEventsOverlay
 import org.osmdroid.views.overlay.Marker
+import androidx.core.content.ContextCompat
 
 enum class MapMode {
     VIEW,
@@ -106,6 +108,8 @@ class MapFragment : Fragment() {
             mapView.controller.setZoom(16.5)
             false
         }*/
+        marker.icon = ContextCompat.getDrawable(requireContext(), R.drawable.hive_marker)
+        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
         map.overlays.add(marker)
     }
     private fun enablePickMode() {

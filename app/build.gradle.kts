@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -72,4 +73,5 @@ dependencies {
     implementation("org.osmdroid:osmdroid-android:6.1.15")
 
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation("com.google.firebase:firebase-messaging:23.4.0")
 }

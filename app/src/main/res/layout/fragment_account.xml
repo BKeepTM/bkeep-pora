@@ -18,26 +18,26 @@
 
         <EditText
             android:id="@+id/etUsername"
-            android:hint="Uporabniško ime"
+            android:hint="@string/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <EditText
             android:id="@+id/etEmail"
-            android:hint="E-pošta"
+            android:hint="@string/e_mail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/btnSave"
-            android:text="Shrani spremembe"
+            android:text="@string/save_changes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/light_yellow"
             android:textColor="@color/dark_gray"/>
 
         <TextView
-            android:text="Spremeni geslo"
+            android:text="@string/change_password"
             android:textStyle="bold"
             android:layout_marginTop="24dp"
             android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
 
         <EditText
             android:id="@+id/etNewPassword"
-            android:hint="Novo geslo"
+            android:hint="@string/new_password"
             android:inputType="textPassword"
             android:visibility="gone"
             android:layout_width="match_parent"
@@ -53,7 +53,7 @@
 
         <EditText
             android:id="@+id/etConfirmPassword"
-            android:hint="Potrdi geslo"
+            android:hint="@string/confirm_password"
             android:inputType="textPassword"
             android:visibility="gone"
             android:layout_width="match_parent"
@@ -61,7 +61,7 @@
 
         <Button
             android:id="@+id/btnChangePassword"
-            android:text="Spremeni geslo"
+            android:text="@string/change_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/dark_gray"

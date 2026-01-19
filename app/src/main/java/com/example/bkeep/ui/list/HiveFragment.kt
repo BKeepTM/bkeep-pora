@@ -84,23 +84,37 @@ class HiveFragment : Fragment() {
                 val position = viewHolder.adapterPosition
                 val hive = hiveAdapter.getItem(position)
 
+                // začasno odstrani iz UI
                 hiveAdapter.removeItem(position)
 
-                // Send deletion request to backend
-                lifecycleScope.launch {
-                    try {
-                        val response = RetrofitInstance.hiveApi.deleteHive(hive.id)
-                        if (!response.isSuccessful) {
-                            Log.e("HiveFragment", "Failed to delete hive: ${response.code()}")
-                            // Restore item if deletion failed
-                            hiveAdapter.addItem(position, hive)
-                        }
-                    } catch (e: Exception) {
-                        Log.e("HiveFragment", "Error deleting hive", e)
+                Snackbar.make(
+                    recyclerView,
+                    "Delete hive \"${hive.name}\"?",
+                    Snackbar.LENGTH_LONG
+                )
+                    .setAction("UNDO") {
                         hiveAdapter.addItem(position, hive)
                     }
-                }
+                    .addCallback(object : Snackbar.Callback() {
+                        override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                            if (event != DISMISS_EVENT_ACTION) {
+                                // uporabnik NI kliknil UNDO → dejanski delete
+                                lifecycleScope.launch {
+                                    try {
+                                        val response = RetrofitInstance.hiveApi.deleteHive(hive.id)
+                                        if (!response.isSuccessful) {
+                                            hiveAdapter.addItem(position, hive)
+                                        }
+                                    } catch (e: Exception) {
+                                        hiveAdapter.addItem(position, hive)
+                                    }
+                                }
+                            }
+                        }
+                    })
+                    .show()
             }
+
 
             override fun onChildDraw(
                 c: Canvas,
