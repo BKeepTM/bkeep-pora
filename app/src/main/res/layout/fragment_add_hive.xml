@@ -9,7 +9,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="❀Add Hive❀"
+        android:text="@string/add_hive"
         android:textSize="26sp"
         android:textStyle="bold"
         android:textColor="@color/dark_gray"
@@ -20,7 +20,7 @@
 
     <EditText
         android:id="@+id/etName"
-        android:hint="Ime panja"
+        android:hint="@string/hive_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
@@ -29,7 +29,7 @@
 
     <EditText
         android:id="@+id/etLocation"
-        android:hint="Lokacija"
+        android:hint="@string/location"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/etName"
@@ -39,7 +39,7 @@
 
     <Button
         android:id="@+id/btnPickLocation"
-        android:text="Izberi koordinate"
+        android:text="@string/pick_location"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/etLocation"
@@ -51,7 +51,7 @@
 
     <EditText
         android:id="@+id/etCoordinates"
-        android:hint="Koordinate"
+        android:hint="@string/coordinates"
         android:enabled="false"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
 
     <Button
         android:id="@+id/btnCreateHive"
-        android:text="Dodaj panj"
+        android:text="@string/submit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/spinnerStatus"

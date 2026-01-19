@@ -22,7 +22,7 @@
             android:id="@+id/LightFrequencyText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Measuring Frequency : "
+            android:text="@string/measuring_frequency"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/lightSensorDisplay"
             app:layout_constraintTop_toBottomOf="@+id/lightSensorDisplay"
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginTop="16dp"
-            android:text="Light Sensor"
+            android:text="@string/light_sensor"
             android:textColor="@color/black"
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Measuring Frequency : "
+            android:text="@string/measuring_frequency"
             app:layout_constraintStart_toStartOf="@+id/humiditySensorDisplay"
             app:layout_constraintTop_toBottomOf="@+id/humiditySensorDisplay" />
 
@@ -68,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Humidity Sensor"
+            android:text="@string/humidity_sensor"
             android:textColor="@color/black"
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -93,7 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Temperature Sensor"
+            android:text="@string/temperature_sensor"
             android:textColor="@color/black"
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -106,7 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Measuring Frequency"
+            android:text="@string/measuring_frequency"
             app:layout_constraintStart_toStartOf="@+id/temperatureSensorDisplay"
             app:layout_constraintTop_toBottomOf="@+id/temperatureSensorDisplay" />
     </androidx.constraintlayout.widget.ConstraintLayout>
