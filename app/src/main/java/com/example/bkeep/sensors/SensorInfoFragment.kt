@@ -48,7 +48,7 @@ class SensorInfoFragment : Fragment() {
         _binding = FragmentSensorInfoBinding.inflate(inflater, container, false)
         return binding.root
     }
-    //--------AI CODE---------
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -137,7 +137,6 @@ class SensorInfoFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-    //-------AI CODE---------
     private fun scheduleSensorWorker(hours: Int, minutes: Int) {
         val totalMinutes = (hours * 60) + minutes
         val safeInterval = if (totalMinutes < 15) 15L else totalMinutes.toLong()

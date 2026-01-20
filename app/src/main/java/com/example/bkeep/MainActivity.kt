@@ -8,6 +8,9 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.example.bkeep.auth.TokenManager
 import com.example.bkeep.databinding.ActivityMainBinding
 import com.example.bkeep.sensors.SensorInfoFragment
@@ -17,6 +20,9 @@ import com.example.bkeep.ui.list.HiveFragment
 import com.example.bkeep.ui.login.LoginActivity
 import com.example.bkeep.ui.map.MapFragment
 import com.example.bkeep.ui.settings.SettingsFragment
+import com.example.bkeep.worker.SensorUploadWorker
+import java.util.concurrent.TimeUnit
+
 import com.google.firebase.messaging.FirebaseMessaging
 class MainActivity : AppCompatActivity() {
 
@@ -70,6 +76,18 @@ class MainActivity : AppCompatActivity() {
             binding.drawerLayout.closeDrawers()
             true
         }
+
+        val workRequest =
+            PeriodicWorkRequestBuilder<SensorUploadWorker>(15, TimeUnit.MINUTES)
+                .addTag("sensor_upload")
+                .build()
+
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+            "sensor_upload",
+            ExistingPeriodicWorkPolicy.UPDATE,
+            workRequest
+        )
+
     }
 
     private fun setCurrentFragment(fragment: Fragment) {

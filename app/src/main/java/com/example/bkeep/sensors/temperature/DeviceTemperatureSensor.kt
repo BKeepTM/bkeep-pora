@@ -11,15 +11,16 @@ class DeviceTemperatureSensor(
     private val onTemperatureChanged: (Float) -> Unit
 ) {
 
+    private var currentValue: Float? = null
+
     private val batteryReceiver = object : BroadcastReceiver() {
         override fun onReceive(ctx: Context?, intent: Intent?) {
-            val temp = intent?.getIntExtra(
-                BatteryManager.EXTRA_TEMPERATURE,
-                -1
-            ) ?: return
+            val temp = intent?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1) ?: return
 
             if (temp > 0) {
-                onTemperatureChanged(temp / 10f) // deci-C → °C
+                val temperature = temp / 10f // deci-C → °C
+                currentValue = temperature
+                onTemperatureChanged(temperature)
             }
         }
     }
@@ -32,4 +33,6 @@ class DeviceTemperatureSensor(
     fun stop() {
         context.unregisterReceiver(batteryReceiver)
     }
+
+    fun getCurrentValue(): Float? = currentValue
 }
