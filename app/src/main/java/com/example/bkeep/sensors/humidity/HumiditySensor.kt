@@ -23,9 +23,14 @@ class HumiditySensor(
     private val handler = Handler(Looper.getMainLooper())
     private var simulationRunning = false
 
+    private var currentValue: Float? = null
+
     fun start() {
         if (humiditySensor != null) {
-            sensorManager.registerListener(this, humiditySensor, SensorManager.SENSOR_DELAY_NORMAL
+            sensorManager.registerListener(
+                this,
+                humiditySensor,
+                SensorManager.SENSOR_DELAY_NORMAL
             )
         } else {
             startSimulation()
@@ -39,9 +44,12 @@ class HumiditySensor(
 
     override fun onSensorChanged(event: SensorEvent) {
         if (event.sensor.type == Sensor.TYPE_RELATIVE_HUMIDITY) {
-            onHumidityChanged(event.values[0])
+            val value = event.values[0]
+            currentValue = value
+            onHumidityChanged(value)
         }
     }
+
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
         return
     }
@@ -54,12 +62,11 @@ class HumiditySensor(
             override fun run() {
                 if (!simulationRunning) return
 
-                val simulatedHumidity =
-                    Random.nextFloat() * (75f - 40f) + 40f
-
+                val simulatedHumidity = Random.nextFloat() * (75f - 40f) + 40f
+                currentValue = simulatedHumidity
                 onHumidityChanged(simulatedHumidity)
-                // ponovi na 10 sekund
-                handler.postDelayed(this, 10_000)
+
+                handler.postDelayed(this, 10_000) // ponovi na 10 sekund
             }
         })
     }
@@ -68,4 +75,6 @@ class HumiditySensor(
         simulationRunning = false
         handler.removeCallbacksAndMessages(null)
     }
+
+    fun getCurrentValue(): Float? = currentValue
 }

@@ -17,6 +17,7 @@ class LightSensor(
     private val lightSensor: Sensor? =
         sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT)
 
+    private var currentValue: Float? = null
     fun start() {
         lightSensor?.let {
             sensorManager.registerListener(
@@ -34,6 +35,7 @@ class LightSensor(
     override fun onSensorChanged(event: SensorEvent) {
         if (event.sensor.type == Sensor.TYPE_LIGHT) {
             val lightValue = event.values[0]
+            currentValue = lightValue
             onLightChanged(lightValue)
         }
     }
@@ -41,4 +43,5 @@ class LightSensor(
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
         return
     }
+    fun getCurrentValue(): Float? = currentValue
 }

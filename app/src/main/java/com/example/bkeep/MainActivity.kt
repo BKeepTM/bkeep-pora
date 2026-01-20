@@ -1,11 +1,16 @@
 package com.example.bkeep
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceManager
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.example.bkeep.auth.TokenManager
 import com.example.bkeep.databinding.ActivityMainBinding
 import com.example.bkeep.sensors.SensorInfoFragment
@@ -15,6 +20,9 @@ import com.example.bkeep.ui.list.HiveFragment
 import com.example.bkeep.ui.login.LoginActivity
 import com.example.bkeep.ui.map.MapFragment
 import com.example.bkeep.ui.settings.SettingsFragment
+import com.example.bkeep.worker.SensorUploadWorker
+import java.util.concurrent.TimeUnit
+
 import com.google.firebase.messaging.FirebaseMessaging
 class MainActivity : AppCompatActivity() {
 
@@ -68,6 +76,18 @@ class MainActivity : AppCompatActivity() {
             binding.drawerLayout.closeDrawers()
             true
         }
+
+        val workRequest =
+            PeriodicWorkRequestBuilder<SensorUploadWorker>(15, TimeUnit.MINUTES)
+                .addTag("sensor_upload")
+                .build()
+
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+            "sensor_upload",
+            ExistingPeriodicWorkPolicy.UPDATE,
+            workRequest
+        )
+
     }
 
     private fun setCurrentFragment(fragment: Fragment) {
@@ -86,5 +106,14 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+    override fun attachBaseContext(newBase: Context) {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(newBase)
+        val scale = prefs.getString("font_size", "1.0")?.toFloat() ?: 1.0f
 
+        val config = newBase.resources.configuration
+        config.fontScale = scale
+
+        val newContext = newBase.createConfigurationContext(config)
+        super.attachBaseContext(newContext)
+    }
 }
