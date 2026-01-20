@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -46,10 +47,31 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.legacy.support.v4)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.remote.creation.core)
+    implementation(libs.androidx.preference)
+    implementation(libs.androidx.material3)
+    implementation(libs.play.services.location)
+    implementation(libs.androidx.work.runtime.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
     val fragment_version = "1.8.9"
     implementation("androidx.fragment:fragment-ktx:${fragment_version}")
+
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation(project(":lib"))
+
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.security:security-crypto:1.1.0-alpha03")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    implementation("org.osmdroid:osmdroid-android:6.1.15")
+
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation("com.google.firebase:firebase-messaging:23.4.0")
 }

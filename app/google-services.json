@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "828460718789",
+    "project_id": "bkeep-notification",
+    "storage_bucket": "bkeep-notification.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:828460718789:android:96e15f0cdb7fa083886eac",
+        "android_client_info": {
+          "package_name": "com.example.bkeep"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUvtB7gJdF0F426pRuOrWvfE57Ms4eWfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,3 +1,64 @@
 <resources>
-    <string name="app_name">Bkeep</string>
+    <string name="app_name"><b>Bkeep™</b></string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="prompt_type">Izberi tip panja</string>
+    <string name="prompt_status">Izberi status</string>
+    <string name="don_t_have_an_account_register_now">Don\'t have an account? Register now.</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="location">Location</string>
+    <string name="hive_name">Hive name</string>
+    <string name="add_hive">❀Add Hive❀</string>
+    <string name="pick_location">Pick location</string>
+    <string name="coordinates">Coordinates</string>
+    <string name="submit">Submit</string>
+    <string name="username">Username</string>
+    <string name="e_mail">E-mail</string>
+    <string name="save_changes">Save changes</string>
+    <string name="change_password">Change password</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="type">type</string>
+    <string name="hivestatus_unknown">hiveStatus: Unknown</string>
+    <string name="logo_image">Logo image</string>
+    <string name="bkeep_logo">BKeep logo</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="note_content">Note content</string>
+    <string name="_12_01_2025_14_22">12.01.2025 14:22</string>
+    <string name="email">Email</string>
+    <string name="register">Register</string>
+    <string name="measuring_frequency">Measuring Frequency :</string>
+    <string name="light_sensor">Light Sensor</string>
+    <string name="humidity_sensor">Humidity Sensor</string>
+    <string name="temperature_sensor">Temperature Sensor</string>
+    <string name="virtual_hive">❀Virtual Hive❀</string>
+    <string name="humidity_range">Humidity range (%)</string>
+    <string name="min">Min</string>
+    <string name="max">Max</string>
+    <string name="brightness_range_lux">Brightness range (lux)</string>
+    <string name="temperature_range_c">Temperature range (°C)</string>
+    <string name="weather">Weather</string>
+    <string name="bee_population">Bee population</string>
+    <string name="initial_hive_weight_kg">Initial hive weight (kg)</string>
+    <string name="e_g_25">e.g. 25</string>
+    <string name="simulation_duration_days">Simulation duration (days)</string>
+    <string name="e_g_7">e.g. 7</string>
+    <string name="simulate">Simulate</string>
 </resources>
